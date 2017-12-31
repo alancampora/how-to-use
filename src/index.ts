@@ -24,14 +24,14 @@ const readFromData:
     data => target => data.filter(entry => entry.keys.indexOf(target) >= 0);
 
 const search: 
-    (t: string, d: examples[]) => Maybe =  
-    (target,data) => Maybe(target).map(readFromData(data));
+    (t: string) => (d: examples[]) => Maybe =  
+    target => data => Maybe(target).map(readFromData(data));
 // ------ WARNING: NON PURE FUNCTIONS GO HERE
 
 const main: 
     (t: string, d: examples[]) => any =
     (target,data) => {
-        let results: Maybe = search(target, data);
+        let results: Maybe = search(target)(data);
         console.log(results);
     };
 
