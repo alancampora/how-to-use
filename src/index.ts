@@ -6,19 +6,39 @@ const compose = (...fns: any[]) =>
     );
 
 interface IMaybe<T> {
+    value: T,
     map <U>( fn: (a:T) => U) : IMaybe<U>;
 }
 
-class Maybe<T> implements IMaybe<T>{
-    private value:T
+const Maybe = <T>(value:T):IMaybe<T> =>({
+   map: <U>( fn: (a:T) => U) : IMaybe<U> => Maybe(fn(value))
+} as IMaybe<T>)
 
-    constructor(value:T){
-       this.value = value; 
-    }
-    map<U>(fn: (a:T) => U){
-        return new Maybe(fn(this.value))
-    }
-}
+
+//type Either<L,R> = Left<L> | Right<R>;
+
+//interface Left<L> {
+    //value:L,
+    //map<U>( fn: (a:L) => U) : Left<L>
+//}
+
+//interface Right<R> {
+    //value:R, 
+    //map<U>( fn: (a:R) => U) : Right<U>
+//}
+//const Left = <L,R>(value: L): Either<L,R> => ({
+   //map: <U>( fn: (a:L) => U) : Left<L> => Left(value)
+//} as Left<L>)
+
+//const Right = <L,R>(value: R): Either<L,R> => ({
+   //map: <U>( fn: (a:R) => U) : Right<U> => Right(fn(value))
+//} as Right<R>)
+
+
+//const Right = <L,R>(value: R): Either<L,R> => ({
+    //kind: "right", v: value
+//} as Right<R>)
+
 
 // ------ BASE FP FUNCTIONS
 
@@ -31,7 +51,7 @@ const readFromData:
 
 const search: 
     (t: string) => (d: example[]) => IMaybe<example[]> =  
-    target => data => new Maybe(target).map(readFromData(data));
+    target => data => Maybe(target).map(readFromData(data));
 
 const showOptions: 
     (o: any[]) => any = 
