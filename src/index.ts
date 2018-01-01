@@ -41,8 +41,12 @@ interface IMaybe<T> {
 const Maybe = <T>(value:T):IMaybe<T> =>({
    map: <U>( fn: (a:T) => U) : IMaybe<U> => 
            value === null || value === undefined ? Maybe(value) : Maybe(fn(value)), 
-           inspect: () : string => `Maybe${value}`
+           inspect: () : string => `Maybe(${value})`
 } as IMaybe<T>)
+
+const map: 
+    (fn: any) => (functor: any) => any =
+    fn => functor => functor.map(fn)
 
 // ------ BASE FP FUNCTIONS
 
@@ -55,22 +59,21 @@ const readFromData:
 
 const search: 
     (t: string) => (d: IExample[]) => IMaybe<IExample[]> =  
-    target => data => Maybe(target).map(readFromData(data));
+         target => data => Maybe(target).map(readFromData(data));
 
-const trace: 
-    (f: any) => any = 
-    data => (console.log(data),data)
+//const trace: 
+    //(f: any) => any = 
+    //data => (console.log('pasa por aca', data), data);
+
 // ------ WARNING: NON PURE FUNCTIONS GO HERE
 
 const main: 
-    (t: string, d: IExample[]) => any =
-    (target,data) => {
-        search(target)(data)
-            .map(compose(show,trace))
-    }
+    (t: string) =>  (d: IExample[]) => any =
+    target => data => compose(map(show),search(target))(data)
+
 let dummyTarget: string = 'functional';
 let dummyData: IExample[] = [
     {keys: ['functional', 'filter']},
     {keys: ['functional', 'map', 'array']}
 ];
-main(dummyTarget, dummyData);
+main(dummyTarget)(dummyData);
