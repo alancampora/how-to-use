@@ -1,4 +1,5 @@
 {
-    "extends": "tslint-config-acamica"
+    "extends": "tslint-config-acamica",
+    "noImplicitAny": false
 }
 

@@ -26,6 +26,7 @@
     "contributors-generate": "all-contributors generate"
   },
   "dependencies": {
+    "inquirer": "^4.0.1",
     "tsns": "0.0.15",
     "typescript": "^2.3.2"
   },
@@ -35,6 +36,7 @@
     "@types/node": "^7.0.12",
     "all-contributors-cli": "^4.5.1",
     "chai": "^3.5.0",
+    "data.task": "^3.1.1",
     "husky": "^0.13.3",
     "mocha": "^3.2.0",
     "npm-run-all": "^4.0.2",
