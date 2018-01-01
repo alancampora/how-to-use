@@ -26,6 +26,7 @@
     "contributors-generate": "all-contributors generate"
   },
   "dependencies": {
+    "@types/inquirer": "0.0.36",
     "inquirer": "^4.0.1",
     "tsns": "0.0.15",
     "typescript": "^2.3.2"
@@ -44,5 +45,8 @@
     "tslint": "^5.1.0",
     "tslint-config-acamica": "^1.0.1",
     "validate-commit-msg": "^2.12.1"
+  },
+  "bin": {
+    "htu": "dist/index.js"
   }
 }
