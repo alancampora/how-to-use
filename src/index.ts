@@ -22,6 +22,8 @@
     //kind: "right", v: value
 //} as Right<R>)
 
+import {show} from './show'
+import {IExample} from './types'
 
 // ------ BASE FP FUNCTIONS
 const compose = (...fns: any[]) =>
@@ -48,16 +50,12 @@ const Maybe = <T>(value:T):IMaybe<T> =>({
 
 // ------ WARNING: NON PURE FUNCTIONS GO HERE
 const readFromData: 
-    (d: example[]) => (t: string) => example[] = 
+    (d: IExample[]) => (t: string) => IExample[] = 
     data => target => data.filter(entry => entry.keys.indexOf(target) >= 0);
 
 const search: 
-    (t: string) => (d: example[]) => IMaybe<example[]> =  
+    (t: string) => (d: IExample[]) => IMaybe<IExample[]> =  
     target => data => Maybe(target).map(readFromData(data));
-
-const showOptions: 
-    (o: example[]) => any = 
-    options => console.log(options)
 
 const trace: 
     (f: any) => any = 
@@ -65,17 +63,13 @@ const trace:
 // ------ WARNING: NON PURE FUNCTIONS GO HERE
 
 const main: 
-    (t: string, d: example[]) => any =
+    (t: string, d: IExample[]) => any =
     (target,data) => {
         search(target)(data)
-            .map(compose(showOptions,trace))
+            .map(compose(show,trace))
     }
-
-interface example {
-    keys: string[];
-}
 let dummyTarget: string = 'functional';
-let dummyData: example[] = [
+let dummyData: IExample[] = [
     {keys: ['functional', 'filter']},
     {keys: ['functional', 'map', 'array']}
 ];
