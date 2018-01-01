@@ -1,20 +1,3 @@
-// ------ BASE FP FUNCTIONS
-const compose = (...fns: any[]) =>
-    fns.reduce(
-    (prevFn, currentFn) => (data: any) => prevFn(currentFn(data)),
-        (identity: any) => identity
-    );
-
-interface IMaybe<T> {
-    value: T,
-    map <U>( fn: (a:T) => U) : IMaybe<U>;
-}
-
-const Maybe = <T>(value:T):IMaybe<T> =>({
-   map: <U>( fn: (a:T) => U) : IMaybe<U> => Maybe(fn(value))
-} as IMaybe<T>)
-
-
 //type Either<L,R> = Left<L> | Right<R>;
 
 //interface Left<L> {
@@ -39,6 +22,23 @@ const Maybe = <T>(value:T):IMaybe<T> =>({
     //kind: "right", v: value
 //} as Right<R>)
 
+
+// ------ BASE FP FUNCTIONS
+const compose = (...fns: any[]) =>
+    fns.reduce(
+    (prevFn, currentFn) => (data: any) => prevFn(currentFn(data)),
+        (identity: any) => identity
+    );
+
+interface IMaybe<T> {
+    value: T | null,
+    map <U>( fn: (a:T) => U) : IMaybe<U>;
+}
+
+const Maybe = <T>(value:T):IMaybe<T> =>({
+   map: <U>( fn: (a:T) => U) : IMaybe<U> => 
+           value === null || value === undefined ? Maybe(value) : Maybe(fn(value))
+} as IMaybe<T>)
 
 // ------ BASE FP FUNCTIONS
 
