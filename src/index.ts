@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import {show} from './show'
 import {IExample} from './types'
 import {IMaybe, Maybe, compose, map} from './fp-ts'
@@ -22,7 +24,7 @@ const main:
 // ---------------------------- DUMMY  ----------------------------
 let dummyTarget: string = 'functional';
 let dummyData: IExample[] = [
-    {keys: ['functional', 'filter']},
-    {keys: ['functional', 'map', 'array']}
+    {keys: ['functional', 'filter'], title: "Array.filter"},
+    {keys: ['functional', 'map', 'array'], title: "Array.map"}
 ];
 main(dummyTarget)(dummyData);
