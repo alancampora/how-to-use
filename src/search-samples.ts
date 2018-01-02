@@ -1,5 +1,5 @@
 import {IExample} from './types'
-import {IMaybe, Maybe} from './fp-ts'
+import {IMaybe, Maybe} from './lib/fp-ts'
 
 const readFromData: 
     (d: IExample[]) => (t: string) => IExample[] | null = 

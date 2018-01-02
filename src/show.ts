@@ -1,5 +1,5 @@
 import * as inquirer from 'inquirer'
-import {compose} from './fp-ts'
+import {compose} from './lib/fp-ts'
 import {IExample} from './types'
 
 const createChoices: 
@@ -7,7 +7,7 @@ const createChoices:
     options => options
                     .map((option,index)=> ({
                         "message": option.title,
-                        "value": option.title,
+                        "value": option.id,
                         "name": option.title
                     })) 
 
@@ -21,9 +21,6 @@ const createQuestion:
     })]
 
 export const show: 
-    (o: IExample[]) => any = 
-    options => inquirer
-                .prompt(compose(createQuestion,createChoices)(options))
-                .then((response:any) => console.log(response))
-                .catch((error:any) => console.log(error))
-       
+    (o: IExample[]) => Promise<inquirer.ChoiceType> = 
+    options => inquirer.prompt(compose(createQuestion,createChoices)(options))
+      

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import {show} from './show'
 import {IExample} from './types'
-import {maybe, compose, trace} from './fp-ts'
+import {maybe, compose, trace} from './lib/fp-ts'
 import {searchAll} from './search-samples'
 
 
