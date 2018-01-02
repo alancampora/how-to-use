@@ -34,8 +34,8 @@ export const trace:
 
 
 export const maybe: 
-    <T,U>(e: string) => (fn: (a:T) => U) => (f: IMaybe<T>) => IMaybe<U> | string = 
-         mError => fn => m => m.isNothing ? mError : m.map(fn)
+    <T,U>(e: string , fn: (a:T) => U) => (f: IMaybe<T>) => IMaybe<U> | string = 
+            (mError ,fn ) => m =>  m.isNothing() ? mError : m.map(fn)
 
 //const maybe:
     //(d:string) => string | number
