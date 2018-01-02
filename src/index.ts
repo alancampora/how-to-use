@@ -1,21 +1,26 @@
 #!/usr/bin/env node
 import {show} from './show'
 import {IExample} from './types'
-import {IMaybe, Maybe, compose, map} from './fp-ts'
-import {searchAll} from './search-samples'
+import {IMaybe, Maybe, maybe, compose, map, trace} from './fp-ts'
+import {searchAll,searchById} from './search-samples'
 
 
 // ---------------------------- PROGRAM ----------------------------
+const afterSelection: 
+    (d: IExample[])=>(s: IExample) =>any= 
+    data => selectedSample => compose(map(trace),searchById(data))(selectedSample.id)
+
 const main: 
     (t: string) =>  (d: IExample[]) => any =
-    target => data => compose(map(show),searchAll(target))(data)
+    target => data => 
+        compose(maybe('Errorr!')(trace), map(show),searchAll(target))(data)
 
 // ---------------------------- DUMMY  ----------------------------
-let dummyTarget: string = 'functional';
+let dummyTarget: string = 'fuisdfiasdfnctional';
 let dummyData: IExample[] = [
-    {keys: ['functional', 'reduce', 'array'], title: "Array.reduce4"},
-    {keys: ['functional', 'reduce', 'array'], title: "Array.reduce"},
-    {keys: ['functional', 'filter', 'array'], title: "Array.filter"},
-    {keys: ['functional', 'map', 'array'], title: "Array.map"}
+    {id: "1", keys: ['functional', 'reduce', 'array'], title: "Array.reduce4"},
+    {id: "2", keys: ['functional', 'reduce', 'array'], title: "Array.reduce"},
+    {id: "3", keys: ['functional', 'filter', 'array'], title: "Array.filter"},
+    {id: "4", keys: ['functional', 'map', 'array'], title: "Array.map"}
 ];
-main(dummyTarget)(dummyData);
+console.log(main(dummyTarget)(dummyData));
